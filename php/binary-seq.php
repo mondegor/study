@@ -101,9 +101,9 @@ printBestSequence(10, -1); // error
  *
  * @param $length int
  * @param $items array
- * @param $cb function
+ * @param $cb(array &$items) Closure
  */
-function genBinarySequences($length, array &$items, $cb)
+function genBinarySequences($length, array &$items, Closure $cb)
 {
     if ($length > 16)
     {
@@ -187,16 +187,14 @@ function findBestChain($length)
  * @param $l int
  * @param $cnt int
  * @param $items array
- * @param $cb function
+ * @param $cb(array &$items) Closure
  */
-function genPermutations($l, $cnt, array &$items, $cb)
+function genPermutations($l, $cnt, array &$items, Closure $cb)
 {
     if ($cnt > 10)
     {
         return;
     }
-
-    $v = '';
 
     if ($l == $cnt)
     {
@@ -319,7 +317,7 @@ function itemPerformance($item, $left, $right)
                 'G' == $item && 'B' == $right ? PERFOMANCE_INCREASED : PERFOMANCE_NORMAL);
     }
 
-    return PERFOMANCE_NORMAL;
+    // return PERFOMANCE_NORMAL;
 }
 
 ##############################################################################
