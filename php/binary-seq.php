@@ -54,7 +54,8 @@ const PERFOMANCE_NORMAL    = 1;
 // performance = 15 :: G B G G B G G B
 // performance = 15 :: G G B G B G G B
 // performance = 15 :: G G B G G B G B
-for ($i = 3; $i < 9; $i++) {
+for ($i = 3; $i < 9; $i++)
+{
     print "length: " . $i . "\n";
     findBestChain($i);
     print "\n";
@@ -71,7 +72,7 @@ printBestSequence(10, 20); // max perfomance
 printBestSequence(0, 30); // test
 printBestSequence(30, 0); // test
 printBestSequence(500, 1000); // best max perfomance
-printBestSequence(1000, 1000); // max
+printBestSequence(1000, 1000); // max items
 printBestSequence(0, 2); // error
 printBestSequence(2, 0); // error
 printBestSequence(1, 1); // error
@@ -99,9 +100,9 @@ printBestSequence(10, -1); // error
  * Алгоритм построения всех вариантов двоичной последовательности указанной длины (2^n).
  * Использовался для поиска максимально производительных последовательностей.
  *
- * @param $length int
- * @param $items array
- * @param $cb(array &$items) Closure
+ * @param int $length
+ * @param array $items
+ * @param Closure $cb(array &$items)
  */
 function genBinarySequences($length, array &$items, Closure $cb)
 {
@@ -129,7 +130,7 @@ function genBinarySequences($length, array &$items, Closure $cb)
  * Алгоритм поиска всех максимально производительных последовательностей.
  * На основе него был написан алгоритм genBestSequence.
  *
- * @param $length int
+ * @param int $length
  */
 function findBestChain($length)
 {
@@ -153,7 +154,7 @@ function findBestChain($length)
 
     ##################################################################################
 
-    // второй прогон, для вывода всех последовательностей
+    // второй прогон для вывода всех последовательностей
     // с максимальной производительностью
     genBinarySequences
     (
@@ -163,7 +164,7 @@ function findBestChain($length)
         {
             if (calcPerformance($a) == $max)
             {
-                print 'performance = ' . $max . ' :: ';
+                print "performance = " . $max . " :: ";
 
                 for ($i = 0; $i < count($a); $i++)
                 {
@@ -184,10 +185,10 @@ function findBestChain($length)
  *
  * :WARNING: не используется
  *
- * @param $l int
- * @param $cnt int
- * @param $items array
- * @param $cb(array &$items) Closure
+ * @param int $l
+ * @param int $cnt
+ * @param array $items
+ * @param Closure $cb(array &$items)
  */
 function genPermutations($l, $cnt, array &$items, Closure $cb)
 {
@@ -217,8 +218,8 @@ function genPermutations($l, $cnt, array &$items, Closure $cb)
  *
  * :WARNING: не используется
  *
- * @param $m int
- * @param $n int
+ * @param int $m
+ * @param int $n
  */
 function findBestChain2($m, $n)
 {
@@ -247,7 +248,7 @@ function findBestChain2($m, $n)
 
     ##############################################################################
 
-    print $max . ' :: ';
+    print $max . " :: ";
 
     for ($i = 0; $i < $cnt; $i++)
     {
@@ -263,7 +264,7 @@ function findBestChain2($m, $n)
 /**
  * Расчёт производительности указанной последовательности.
  *
- * @param $items array
+ * @param  array $items
  * @return int
  */
 function calcPerformance(array &$items)
@@ -300,9 +301,9 @@ function calcPerformance(array &$items)
  *
  * GGB = INCREASED; GBG = INCREASED; BGG = INCREASED;
  *
- * @param $item string
- * @param $left string
- * @param $right string
+ * @param string $item
+ * @param string $left
+ * @param string $right
  * @return int
  */
 function itemPerformance($item, $left, $right)
@@ -326,8 +327,8 @@ function itemPerformance($item, $left, $right)
  * Алгоритм генерации максимально производительной
  * последовательности написанный на основе поставленной задачи.
  *
- * @param $m int
- * @param $n int
+ * @param int $m
+ * @param int $n
  * @return array
  */
 function &genBestSequence($m, $n)
@@ -344,7 +345,7 @@ function &genBestSequence($m, $n)
     }
     else
     {
-        $n -= 2 * $chains; // (0,1) на случай если $n нечётно
+        $n -= 2 * $chains; // $n=[0,1] на случай если $n нечётно
         $m -= $chains;
     }
 
@@ -379,8 +380,8 @@ function &genBestSequence($m, $n)
  * Генерация максимально производительной
  * последовательности и её отображение.
  *
- * @param $m int
- * @param $n int
+ * @param int $m
+ * @param int $n
  */
 function printBestSequence($m, $n)
 {
@@ -395,9 +396,9 @@ function printBestSequence($m, $n)
     $a = genBestSequence($m, $n);
     $cnt = count($a);
 
-    print '$m = ' . str_pad($m, 4, ' ', STR_PAD_LEFT) . '; ' .
-          '$n = ' . str_pad($n, 4, ' ', STR_PAD_LEFT) . '; ' .
-          'performance = ' . str_pad(calcPerformance($a), 4, ' ', STR_PAD_LEFT) . ' :: ';
+    print '$m = ' . str_pad($m, 4, ' ', STR_PAD_LEFT) . "; " .
+          '$n = ' . str_pad($n, 4, ' ', STR_PAD_LEFT) . "; " .
+          "performance = " . str_pad(calcPerformance($a), 4, ' ', STR_PAD_LEFT) . " :: ";
 
     for ($i = 0; $i < $cnt; $i++)
     {
